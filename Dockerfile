@@ -2,8 +2,6 @@
 
 FROM alpine:latest AS build-env
 
-LABEL org.opencontainers.image.source="https://github.com/CodiePP/redir_docker"
-
 RUN addgroup -g 1000 user \
     && adduser -u 1000 -G user -s /bin/bash -D user \
     && apk update \
@@ -20,6 +18,10 @@ RUN cd redir.git && ./autogen.sh && ./configure && make && strip -s redir
 #####
 
 FROM alpine:latest
+
+LABEL org.opencontainers.image.source="https://github.com/CodiePP/redir_docker"
+LABEL org.opencontainers.image.description="redir in docker - port forwarding"
+LABEL org.opencontainers.image.licenses=GPL-3.0-or-later
 
 RUN addgroup -g 1000 user \
     && adduser -u 1000 -G user -s /bin/bash -D user \
